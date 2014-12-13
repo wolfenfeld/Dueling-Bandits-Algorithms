@@ -2,6 +2,10 @@ import numpy as np
 from black_boxes.ucb1 import *
 import random
 
+def calculate_regret(preference_matrix, left_arm, right_arm):
+
+    delta_left = preference_matrix[left_arm,]
+
 
 def time_interval(p):
     """ time_interval() - This function returns the time interval T_p. """

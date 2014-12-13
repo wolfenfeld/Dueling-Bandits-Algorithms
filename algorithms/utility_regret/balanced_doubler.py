@@ -57,7 +57,6 @@ def run_doubler_algorithm(real_arms, n_arms, log_horizon, means):
     if HOT_START_WITH_DELTA:
 
         hot_start_plays = min(math.ceil(1/(n_arms*(delta**2)+.0)), int(n_arms**2.5))
-        print(delta)
     else:
         hot_start_plays = int(n_arms**2.5)
 

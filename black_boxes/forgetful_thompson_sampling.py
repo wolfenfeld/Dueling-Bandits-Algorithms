@@ -2,7 +2,7 @@ import random
 import numpy as np
 
 
-class UCB_FTS():
+class ForgetfulTS():
 
     def __init__(self, values, successes, fails):
         self.n_arms = 0

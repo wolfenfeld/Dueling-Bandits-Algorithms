@@ -24,4 +24,4 @@ class BernoulliArms():
         else:
             right_reward = 1
 
-        return  [left_reward, right_reward]
+        return [left_reward, right_reward]
