@@ -1,23 +1,23 @@
 from algorithms.preference_regret import doubler, sparring_thompson, improved_doubler_thompson_sampling, sparring, \
-    forgetful_doubler, improved_doubler, savage, forgetful_doubler_thompson_sampling, rcs, rucb
+    forgetful_doubler, improved_doubler, savage, forgetful_doubler_thompson_sampling, rcs, rucb, sparring_thompson_turbo
 from data.preference_matrices.preference_matrix import PreferenceMatrix
 
 import matplotlib.pyplot as plt
 
 # The number of iterations for this test.
-iterations = 1
+iterations = 3
 
 
 arms = PreferenceMatrix()
 arms.init('/home/wolfenfeld/Studies/Dueling-Bandits-Algorithms/data/PMat.npy')
 
-horizon = 2**20
+horizon = 2**19
 
 # The list of algorithm available fpr test:
 # "RUCB", "RCS", "Sparring", "Doubler", "Improved Doubler"
 # "Improved Doubler TS", "SAVAGE", "BTM", "Forgetful Doubler", "Sparring TS","Forgetful Thompson Sampling Doubler"
 
-simulated_algorithms = ["Sparring TS", "RUCB"]
+simulated_algorithms = ["Sparring TS", "Sparring TS Turbo"]
 
 plot_line_style = ['b--', 'g--', 'r--', 'c--', 'm--', 'k--', 'b-.', 'g-.', 'r-.', 'c-.', 'm-.', 'k-.']
 number_of_plots = 0
@@ -29,6 +29,12 @@ if "Sparring TS" in simulated_algorithms:
     plt.plot(range(horizon), sparring_thompson_results, plot_line_style[number_of_plots], label="Sparring TS")
     number_of_plots += 1
     print "Done with Sparring TS"
+
+if "Sparring TS Turbo" in simulated_algorithms:
+    sparring_thompson_results2 = sparring_thompson_turbo.run_several_iterations(iterations, arms, horizon)
+    plt.plot(range(horizon), sparring_thompson_results2, plot_line_style[number_of_plots], label="Sparring TS Turbo")
+    number_of_plots += 1
+    print "Done with Sparring TS Turbo"
 
 if "RUCB" in simulated_algorithms:
     rucb_results = rucb.run_several_iterations(iterations, arms, horizon)

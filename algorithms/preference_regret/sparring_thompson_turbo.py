@@ -1,6 +1,6 @@
 import numpy as np
 import random
-from black_boxes.thompson_sampling import *
+from black_boxes.thompson_sampling_turbo import *
 
 
 def observe_b_t(left_reward, right_reward):

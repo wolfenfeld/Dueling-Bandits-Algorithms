@@ -31,8 +31,10 @@ class UCB_TS():
 
         for arm in range(len(self.successes)):
             self.values[arm] = random.betavariate(
-                alpha=(self.successes[arm] + 1),
-                beta=(self.fails[arm]+1))
+                alpha=(self.successes[arm] + 1
+                       ),
+                beta=(self.fails[arm]+1 + math.log(1+t*(2**(-t/64**2))))
+            )
 
         return np.argmax(self.values)
 

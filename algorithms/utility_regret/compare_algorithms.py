@@ -9,14 +9,14 @@ import numpy as np
 
 USE_REAL_DATA = False
 
-horizon = 2**17
+horizon = 2**20
 
 chosen_data_set_name = "MQ2007"
 
 # The number of iterations for this test.
-iterations = 20
+iterations = 2
 
-n_arms = 7
+n_arms = 16
 
 if USE_REAL_DATA:
     # Setting the arms
@@ -33,7 +33,8 @@ else:
 # "RUCB", "RCS", "Sparring", "Balanced Doubler", "Doubler", "Improved Doubler"
 # "Improved Doubler TS", "SAVAGE", "BTM", "Forgetful Doubler", "Sparring TS"
 
-simulated_algorithms = ["Sparring", "BTM", "Sparring TS"]
+simulated_algorithms = ["Sparring", "Balanced Doubler", "Improved Doubler"]
+                        # "Improved Doubler TS", "BTM", "Sparring TS"]
 
 plot_line_style = ['b--', 'g--', 'r--', 'c--', 'm--', 'k--', 'b-.', 'g-.', 'r-.', 'c-.', 'm-.', 'k-.']
 number_of_plots = 0
@@ -92,7 +93,7 @@ if "Improved Doubler TS" in simulated_algorithms:
     improved_doubler_thompson_sampling_results = \
         improved_doubler_thompson_sampling.run_several_iterations(iterations, arms, n_arms, horizon, means)
     plt.plot(range(horizon), improved_doubler_thompson_sampling_results, plot_line_style[number_of_plots],
-             label="Improved Doubler TS")
+             label="Un-forgetful Doubler TS")
     number_of_plots += 1
     print "Done with Improved Doubler TS"
 

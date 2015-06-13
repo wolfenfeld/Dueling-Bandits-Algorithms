@@ -191,3 +191,14 @@ def run_several_iterations(iterations, arms, n_arms, horizon, means):
         results += run_savage_algorithm(arms, n_arms, horizon, means)
 
     return results/(iterations + .0)
+
+
+def test_functionality():
+
+    a = np.random.randint(5, size=(3, 3))
+
+    arg_min_2d(a)
+
+
+if __name__ == "__main__":
+    test_functionality()
