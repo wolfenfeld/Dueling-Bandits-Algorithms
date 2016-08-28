@@ -12,7 +12,7 @@ class DataSet():
     def __init__(self, data_set_name):
 
         if data_set_name == "MQ2007":
-            self.data_file_path = os.getcwd()+"/../data/MQ2007/Fold1/train.txt"
+            self.data_file_path = "/home/wolfenfeld/Studies/Dueling-Bandits-Algorithms/data/MQ2007/Fold1/test.txt"
             self.number_of_rankers = MQ2007_NUMBER_OF_RANKERS
         elif data_set_name == "NP2004":
             self.data_file_path = os.getcwd()+"/../data/NP2004/Fold1/train.txt"

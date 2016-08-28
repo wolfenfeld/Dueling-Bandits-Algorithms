@@ -37,8 +37,8 @@ def run_sparring_algorithm(arms, n_arms, horizon, means):
     for t in range(horizon):
 
         # Using the black-boxes to select the arms
-        left_arm = left_black_box.select_arm()
-        right_arm = right_black_box.select_arm()
+        left_arm = left_black_box.select_arm(t)
+        right_arm = right_black_box.select_arm(t)
 
         # Acquiring the rewards
         [left_reward, right_reward] = arms.draw(left_arm, right_arm)
@@ -75,11 +75,36 @@ def run_several_iterations(iterations, arms, n_arms, horizon, means):
 
     # Initializing the results vector.
     results = np.zeros(horizon)
+    result = np.zeros([horizon, iterations])
+    mean_error = np.zeros(horizon)
+    for iteration in range(iterations):
+
+        # The current cumulative regret.
+        result[:,iteration] = run_sparring_algorithm(arms, n_arms, horizon, means)
+        results += result[:,iteration]
+
+    # Returning the average cumulative regret.
+    mean_results = results/(iterations + .0)
+    for iteration in range(iterations):
+        # mean_error += abs(mean_results - result[:, iteration])
+
+        mean_error += np.power(mean_results - result[:, iteration], 2)
+
+    # mean_error += np.sqrt(abs(np.power(mean_results, 2) - np.power(result[:, iteration], 2)))
+
+    return mean_results, np.sqrt(mean_error/(iterations + .0))
+
+def run_several_iterations_and_save_results(algorithm, iterations, arms, n_arms, horizon, means, data_type):
+    """ test_several_iterations() - This function runs several iterations of the Sparring algorithm. """
+
+    # Initializing the results vector.
+    result = np.zeros([horizon, iterations])
+
+    file_name = "{0}_{1}_arms_{2}_horizon_{3}".format(algorithm, data_type, n_arms, horizon)
 
     for iteration in range(iterations):
 
         # The current cumulative regret.
-        results += run_sparring_algorithm(arms, n_arms, horizon, means)
+        result[:, iteration] = run_sparring_algorithm(arms, n_arms, horizon, means)
 
-    # Returning the average cumulative regret.
-    return results/(iterations +.0)
+    np.save(file_name, result)

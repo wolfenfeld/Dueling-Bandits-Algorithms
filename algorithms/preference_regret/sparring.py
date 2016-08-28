@@ -80,6 +80,22 @@ def run_several_iterations(iterations, arms, horizon):
     # Returning the average cumulative regret.
     return results/(iterations + .0)
 
+def run_several_iterations_and_save_results(algorithm, iterations, arms, n_arms, horizon, data_type):
+    """ test_several_iterations() - This function runs several iterations of the Sparring algorithm. """
+
+    # Initializing the results vector.
+    result = np.zeros([horizon, iterations])
+
+    file_name = "{0}_{1}_arms_{2}_horizon_{3}".format(algorithm, data_type, n_arms, horizon)
+
+    for iteration in range(iterations):
+
+        # The current cumulative regret.
+        result[:, iteration] = run_sparring_algorithm(arms, horizon)
+
+    np.save(file_name, result)
+
+
 if __name__ == "__main__":
     from data.preference_matrices.preference_matrix import PreferenceMatrix
     import matplotlib.pyplot as plt

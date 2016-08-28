@@ -5,11 +5,11 @@ from data.preference_matrices.preference_matrix import PreferenceMatrix
 import matplotlib.pyplot as plt
 
 # The number of iterations for this test.
-iterations = 3
-
+iterations = 2
 
 arms = PreferenceMatrix()
 arms.init('/home/wolfenfeld/Studies/Dueling-Bandits-Algorithms/data/PMat.npy')
+# arms.init('/home/wolfenfeld/Studies/Dueling-Bandits-Algorithms/data/P_small_Mat.npy')
 
 horizon = 2**19
 

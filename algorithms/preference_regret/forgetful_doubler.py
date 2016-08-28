@@ -126,3 +126,18 @@ def run_several_iterations(iterations, arms, horizon):
 
     # Returning the average cumulative regret.
     return results/(iterations + .0)
+
+def run_several_iterations_and_save_results(algorithm, iterations, arms, n_arms, horizon, data_type):
+    """ test_several_iterations() - This function runs several iterations of the Sparring algorithm. """
+
+    # Initializing the results vector.
+    result = np.zeros([horizon, iterations])
+    log_horizon = int(math.log(horizon, 2))
+    file_name = "{0}_{1}_arms_{2}_horizon_{3}".format(algorithm, data_type, n_arms, horizon)
+
+    for iteration in range(iterations):
+
+        # The current cumulative regret.
+        result[:, iteration] = run_forgetful_doubler_algorithm(arms, log_horizon)
+
+    np.save(file_name, result)

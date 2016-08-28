@@ -77,7 +77,7 @@ def run_doubler_algorithm(arms, n_arms, log_horizon, means):
             left_arm = choose_from_probability_vector(construct_probability_vector(my_left_set))
 
             # Choosing an arm using the right black box.
-            right_arm = right_black_box.select_arm()
+            right_arm = right_black_box.select_arm(t)
 
             # Updating the histogram for the next time interval
             arms_histogram[right_arm] += 1
@@ -129,3 +129,18 @@ def run_several_iterations(iterations, arms, n_arms, horizon, means):
 
     # Returning the average cumulative regret.
     return results/(iterations + .0)
+
+def run_several_iterations_and_save_results(algorithm, iterations, arms, n_arms, horizon, means, data_type):
+    """ test_several_iterations() - This function runs several iterations of the Sparring algorithm. """
+
+    # Initializing the results vector.
+    result = np.zeros([horizon, iterations])
+    log_horizon = int(math.log(horizon, 2))
+    file_name = "{0}_{1}_arms_{2}_horizon_{3}".format(algorithm, data_type, n_arms, horizon)
+
+    for iteration in range(iterations):
+
+        # The current cumulative regret.
+        result[:, iteration] = run_doubler_algorithm(arms, n_arms, log_horizon, means)
+
+    np.save(file_name, result)

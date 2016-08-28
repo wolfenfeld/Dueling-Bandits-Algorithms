@@ -11,8 +11,9 @@ def ind_max(x):
 
 class UCB_TS():
 
-    def __init__(self, values, successes, fails):
+    def __init__(self, values, successes, fails, n_arms):
 
+        self.n_arms = n_arms
         self.successes = successes
         self.fails = fails
         self.values = values
@@ -30,12 +31,12 @@ class UCB_TS():
     def select_arm(self, t):
 
         for arm in range(len(self.successes)):
+            beta = self.fails[arm]+1 + math.log(1+t*pow(2, -t/(pow(self.n_arms, 2))))
             self.values[arm] = random.betavariate(
                 alpha=(self.successes[arm] + 1
                        ),
-                beta=(self.fails[arm]+1 + math.log(1+t*(2**(-t/64**2))))
+                beta=beta
             )
-
         return np.argmax(self.values)
 
     def update(self, chosen_arm, b_t):
